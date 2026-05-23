@@ -103,6 +103,13 @@ def main() -> None:
         Path(".autoresearch/last_val_acc.txt").write_text(f"{val_acc:.6f}\n")
         print(f"[FINAL] val_acc={val_acc:.4f}  run_id={run.info.run_id}")
 
+    # Auto-rebuild visual companion (best-effort; non-fatal if viz unavailable)
+    try:
+        from viz.companion import main as build_companion
+        build_companion()
+    except Exception as e:
+        print(f"[warn] companion rebuild skipped: {e}")
+
 
 if __name__ == "__main__":
     main()
