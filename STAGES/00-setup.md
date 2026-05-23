@@ -5,18 +5,27 @@
 ## 사전 점검
 
 ```bash
+# 기본 도구
 codex --version
 which docker && docker version --format '{{.Server.Version}}'
-python3 --version
+python3.11 --version || python3 --version
 
-# autoresearch 스킬 확인 (universal skills folder: ~/.agents/skills/)
+# autoresearch 스킬 (두 경로 모두 확인)
 if [ -d ~/.agents/skills/autoresearch ]; then
-  echo "✓ autoresearch skill present"
+  echo "✓ autoresearch skill present (universal folder)"
+elif codex skills list 2>/dev/null | grep -q autoresearch; then
+  echo "✓ autoresearch skill present (codex plugin marketplace)"
 else
-  echo "✗ autoresearch skill MISSING — install with:"
-  echo "    skills add anthropics/superpowers@autoresearch -g --copy -a claude-code"
-  echo "  또는 marketplace 검색: skills find autoresearch"
+  echo "✗ autoresearch skill MISSING — install via:"
+  echo "    skills find autoresearch    # 마켓플레이스 검색"
+  echo "    skills add <result>@autoresearch -g --copy -a claude-code"
 fi
+
+# Python 가상환경 + 의존성 (반드시 실행)
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+.venv/bin/pytest --version
 ```
 
 위 명령을 codex가 실행하고 결과를 보고합니다.
