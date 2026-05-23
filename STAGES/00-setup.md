@@ -8,7 +8,15 @@
 codex --version
 which docker && docker version --format '{{.Server.Version}}'
 python3 --version
-ls -d ~/.claude/plugins/cache/autoresearch 2>/dev/null && echo "autoresearch skill present" || echo "autoresearch skill MISSING"
+
+# autoresearch 스킬 확인 (universal skills folder: ~/.agents/skills/)
+if [ -d ~/.agents/skills/autoresearch ]; then
+  echo "✓ autoresearch skill present"
+else
+  echo "✗ autoresearch skill MISSING — install with:"
+  echo "    skills add anthropics/superpowers@autoresearch -g --copy -a claude-code"
+  echo "  또는 marketplace 검색: skills find autoresearch"
+fi
 ```
 
 위 명령을 codex가 실행하고 결과를 보고합니다.
