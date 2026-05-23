@@ -19,3 +19,4 @@ viz/companion.html
 *.egg-info/
 build/
 dist/
+tmp/
