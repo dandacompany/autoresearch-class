@@ -14,6 +14,9 @@ dependencies = [
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.4"]
 
+[tool.setuptools.packages.find]
+include = ["baseline*", "viz*"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
