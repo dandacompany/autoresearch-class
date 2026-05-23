@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>autoresearch progress</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Gowun+Dodum:wght@400;700&family=Caveat:wght@700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_static/chalkboard.css">
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1 class="title-display">autoresearch progress</h1>
+      <div class="meta">iter {{ iter_current }} / {{ iter_total }} · best {{ "%.1f"|format(best_acc * 100) }}%</div>
+    </header>
+
+    <section>
+      <div class="stat-hero">{{ "%.1f"|format(best_acc * 100) }}<span class="unit">%</span></div>
+      <div class="meta">best validation accuracy so far</div>
+    </section>
+
+    <hr class="divider">
+
+    <section class="iter-grid">
+      {% for it in iters %}
+      <article class="chalk-card" style="transform: rotate({{ it.rotation }}deg);">
+        <h3>iter {{ it.n }} <span class="badge {{ it.verdict|lower }}">{{ it.verdict }}</span></h3>
+        <p><strong>가설.</strong> {{ it.hypothesis }}</p>
+        <p><strong>변경.</strong> {{ it.change }}</p>
+        <p><strong>결과.</strong> {{ "%.2f"|format(it.acc_before * 100) }}% → <span class="highlight-yellow">{{ "%.2f"|format(it.acc_after * 100) }}%</span> (Δ {{ "%+.2f"|format((it.acc_after - it.acc_before) * 100) }}p)</p>
+        {% if it.verdict_text %}<p><strong>해석.</strong> {{ it.verdict_text }}</p>{% endif %}
+        {% if it.git_sha %}<div class="callout-info">commit {{ it.git_sha }}</div>{% endif %}
+        {% if it.mlflow_run %}<div class="meta"><a href="http://localhost:5000/#/experiments/0/runs/{{ it.mlflow_run }}">mlflow run</a></div>{% endif %}
+      </article>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>
