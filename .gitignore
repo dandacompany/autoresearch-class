@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+data/
+*.pt
+*.pth
+mlflow/mlruns/
+mlflow/mlartifacts/
+mlflow/postgres-data/
+viz/companion.html
+.autoresearch/
+.vscode/
+.idea/
+.DS_Store
