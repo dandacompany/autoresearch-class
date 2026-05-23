@@ -7,6 +7,16 @@
 ```bash
 git clone <this-repo> autoresearch-class
 cd autoresearch-class
+
+# 환경 셋업 (1회)
+python3.11 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+
+# MLflow 기동
+cd mlflow && docker compose up -d && cd ..
+
+# codex 진입
 codex
 ```
 
